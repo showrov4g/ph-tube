@@ -12,7 +12,7 @@ const displayCategory = (categories) => {
   const categoryContainer = document.getElementById("categories");
   categories.forEach((item) => {
     const button = document.createElement("button");
-    button.classList = "btn";
+    button.classList = "btn hover:bg-[#FF1F3D] hover:text-white";
     button.innerText = item.category;
     categoryContainer.append(button);
   });
