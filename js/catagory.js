@@ -6,14 +6,31 @@ const loadCategory = () => {
     .then((data) => displayCategory(data.categories))
     .catch((error) => displayCategory(error));
 };
+
 // display category function
+// const displayCategory = (categories) => {
+//   const categoryContainer = document.getElementById("categories");
+//   categories.forEach((item) => {
+//     const buttonContainer = document.createElement("div");
+//     buttonContainer.innerHTML = `
+//     <button onclick="loadCategoryVideo()" class= "btn">
+//       ${item.category}
+//     </button>
+//     `
+//     categoryContainer.append(buttonContainer)
+//   });
+// };
 
 const displayCategory = (categories) => {
   const categoryContainer = document.getElementById("categories");
   categories.forEach((item) => {
     const button = document.createElement("button");
-    button.classList = "btn hover:bg-[#FF1F3D] hover:text-white";
+    button.classList = "btn";
     button.innerText = item.category;
+    button.onclick = () => {
+      alert("button clicked");
+    };
+
     categoryContainer.append(button);
   });
 };
