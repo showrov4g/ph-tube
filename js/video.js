@@ -1,19 +1,27 @@
-const loadVideos = () => {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const loadVideos = (searchText ="") => {
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
     .then((Response) => Response.json())
     .then((data) => displayVideos(data.videos))
     .catch((error) => displayVideos(error));
 };
-// category wise video function
-const loadCategoryVideo = (id) => {
-  fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
-    .then((Response) => Response.json())
-    .then((data) => displayVideos(data.category))
-    .catch((error) => console.log(error));
-};
 
 const displayVideos = (videos) => {
   const videoContainer = document.getElementById("videos");
+  videoContainer.innerHTML = " ";
+  if (videos.length === 0) {
+    videoContainer.classList.remove("grid");
+    videoContainer.innerHTML = `
+      <div class= "min-h-[300px] flex flex-col gap-5 justify-center items-center "> 
+      <img src="./image/Icon.png "/>
+      <h2 class="text-4xl font-semibold">No Content Here in this category</h2>
+      </div>
+
+    `;
+    return;
+  } else {
+    videoContainer.classList.add("grid");
+  }
+
   videos.forEach((video) => {
     const card = document.createElement("div");
     card.classList = "card card-compact";
@@ -50,6 +58,10 @@ const displayVideos = (videos) => {
                         }
 
                     </div>
+
+                    <p>
+                        <button onclick="loadDetails('${video.video_id}')" class="btn btn-sm btn-error">Details</button>
+                    </p>
                 </div>
             </div>
         `;
